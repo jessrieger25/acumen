@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Submission.associate = (models) => {
     Submission.hasMany(models.Test);
+    Submission.hasMany(models.SubmissionFile);
   };
   return Submission;
 };

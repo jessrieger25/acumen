@@ -24,7 +24,8 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   File.associate = (models) => {
-    File.belongsToMany(models.Assignment, { through: "AssignmentFiles" });
+    File.hasMany(models.AssignmentFile);
+    File.hasMany(models.SubmissionFile);
   };
   return File;
 };

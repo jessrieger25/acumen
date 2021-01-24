@@ -1,7 +1,7 @@
 "use strict";
 const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
-  class Assignment extends Model {
+  class SubmissionFile extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -11,21 +11,21 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Assignment.init(
-    {
-      title: DataTypes.STRING,
-      description: DataTypes.STRING,
-      submissionsAllowed: DataTypes.INTEGER,
-    },
+  SubmissionFile.init(
+    {},
     {
       sequelize,
-      modelName: "Assignment",
+      modelName: "SubmissionFile",
     }
   );
 
-  Assignment.associate = (models) => {
-    Assignment.hasMany(models.AssignmentFile);
-    Assignment.hasMany(models.Submission);
+  SubmissionFile.associate = (models) => {
+    SubmissionFile.belongsTo(models.Submission, {
+      foreignKey: "submissionId",
+    });
+    SubmissionFile.belongsTo(models.File, {
+      foreignKey: "fileId",
+    });
   };
-  return Assignment;
+  return SubmissionFile;
 };

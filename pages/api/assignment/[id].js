@@ -5,7 +5,7 @@ import fs from "fs";
 import { spawn } from "child_process";
 import { v4 } from "uuid";
 import neatCsv from "neat-csv";
-import { Test, File, Assignment, Submission } from "../../models";
+import { Test, File, Assignment, Submission, SubmissionFile } from "../../models";
 const fsPromises = fs.promises;
 
 export const config = {
@@ -90,9 +90,11 @@ export default async (req, res) => {
       type: "Submission",
     });
     // TODO: Create Submission
-    Submission.create({AssignmentId: id, completed: true});
-    // TODO: Associate Submission with FIle
-    // TODO: Associate Assignment with Submission
+    const submissionObj = await Submission.create({assignmentId: id, completed: true});
+    SubmissionFile.create({submissionId: submissionObj.id, fileId: fileObj.id})
+    
+    // TODO: Associate Submission with File
+    AssignmentFile.create({assignmentId: id, fileId: fileObj.id})
 
     console.log(err, fields, files);
     res.setHeader("Content-Type", "application/json");

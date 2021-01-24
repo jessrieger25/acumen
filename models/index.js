@@ -10,6 +10,7 @@ const db = {};
 
 import File from "./file";
 import Assignment from "./assignment";
+import AssignmentFile from "./assignmentfile";
 import Submission from "./submission";
 import Test from "./test";
 
@@ -27,8 +28,13 @@ if (config.use_env_variable) {
 
 db.File = File(sequelize, Sequelize);
 db.Assignment = Assignment(sequelize, Sequelize);
+db.AssignmentFile = AssignmentFile(sequelize, Sequelize);
+
 db.Submission = Submission(sequelize, Sequelize);
 db.Test = Test(sequelize, Sequelize);
+
+db.Assignment.associate(db);
+db.AssignmentFile.associate(db);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
