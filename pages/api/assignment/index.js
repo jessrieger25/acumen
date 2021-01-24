@@ -1,4 +1,4 @@
-import { Assignment, File } from "../../models";
+import { Assignment, File } from "../../../models";
 import Sequelize from "sequelize";
 const Op = Sequelize.Op;
 
