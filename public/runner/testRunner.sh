@@ -7,4 +7,4 @@ export PYTHONPATH=$directory
 
 touch $directory/__init__.py
 
-python3 -m pytest $testPath
+python3 -m pytest -s -v $testPath

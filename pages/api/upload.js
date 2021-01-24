@@ -1,4 +1,8 @@
 import formidable from "formidable";
+import path from "path";
+import fs from "fs";
+import { spawn } from "child_process";
+import { v4 } from "uuid";
 
 export const config = {
   api: {
@@ -6,9 +10,9 @@ export const config = {
   },
 };
 
-async function test(testFile, subFile) {
-  const testFile = path.resolve(testFile);
-  const subFile = path.resolve(subFile);
+function test(testFile, subFile) {
+  testFile = path.resolve(testFile);
+  subFile = path.resolve(subFile);
 
   const tempDir = path.resolve(`./public/tmp/${v4()}/`);
 
@@ -75,3 +79,8 @@ export default async (req, res) => {
     res.end(JSON.stringify({ err, fields, files }));
   });
 };
+
+test(
+  "./public/assignments/helloWorld/unittest_file.py",
+  "./public/submissions/jess/hello_world_submission.py"
+);

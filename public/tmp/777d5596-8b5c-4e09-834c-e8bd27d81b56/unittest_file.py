@@ -16,10 +16,8 @@ def test_synthesis(module_results_dct):
     for k in module_results_dct:
         print("    - " + k)
 
-    # print what is available for a single test
-    print("\n   Contents of 'test_foo[world]':")
-    for k, value in module_results_dct.items():
-        print(value)
+    # # print what is available for a single test
+    # print("\n   Contents of 'test_foo[world]':")
     # for k, v in module_results_dct['test_foo[world]'].items():
     #     if k != 'status_details':
     #         print("    - '%s': %s" % (k, v))
