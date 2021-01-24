@@ -14,7 +14,7 @@ function test(testFile, subFile) {
   testFile = path.resolve(testFile);
   subFile = path.resolve(subFile);
 
-  const tempDir = path.resolve(`./public/tmp/${v4()}/`);
+  const tempDir = path.resolve(`./public/tmp/${new Date().toISOString()}/`);
 
   const newTestPath = `${tempDir}/${path.parse(testFile).base}`;
   const newSubPath = `${tempDir}/${path.parse(subFile).base}`;
