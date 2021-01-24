@@ -14,7 +14,7 @@ export const config = {
   },
 };
 
-async function test(testFile, subFile) {
+async function test(testFile, subFile, subId) {
   testFile = path.resolve(testFile);
   subFile = path.resolve(subFile);
 
@@ -66,7 +66,7 @@ async function test(testFile, subFile) {
         }
         return obj;
       }, {});
-      Test.create(counts);
+      await Submission.update(obj, {where: {id: subId}})
     });
 
     return Promise.resolve(dataToSend);
@@ -103,8 +103,13 @@ export default async (req, res) => {
 
     const assignment = Assignment.findByPk(id, {include: { model: AssignmentFile}})
     console.log(assignment)
-
-    test(files.file.name)
+    let testFile;
+    assignment.AssignmentFiles.forEach(fileObj => {
+      if (fileObj.type === "TestFile") {
+        testFile = fileObj.path
+      }
+    })
+    test(testFile, iles.file.path, submissionObj.id)
   });
   } else if (req.method === "GET") {
 
