@@ -5,7 +5,7 @@ import fs from "fs";
 import { spawn } from "child_process";
 import { v4 } from "uuid";
 import neatCsv from "neat-csv";
-import { Test, File, Assignment, Submission, SubmissionFile } from "../../models";
+import { File, Assignment, Submission } from "../../models";
 const fsPromises = fs.promises;
 
 export const config = {
@@ -75,10 +75,11 @@ async function test(testFile, subFile) {
 }
 
 export default async (req, res) => {
-  // Get info about assignment
   const router = useRouter();
   const { id } = router.query;
-
+  if (req.method === "POST") {
+    // Get info about assignment
+  
   const form = new formidable.IncomingForm();
   form.uploadDir = "./public/uploads";
   form.keepExtensions = true;
@@ -99,5 +100,16 @@ export default async (req, res) => {
     console.log(err, fields, files);
     res.setHeader("Content-Type", "application/json");
     res.end(JSON.stringify({ err, fields, files }));
+
+    const assignment = Assignment.findByPk(id, {include: { model: AssignmentFile}})
+    console.log(assignment)
+
+    test(files.file.name)
   });
+  } else if (req.method === "GET") {
+
+    res.end(JSON.stringify(Submission.findAll({include: [
+      {where: {id}}]})))
+  }
+  
 };

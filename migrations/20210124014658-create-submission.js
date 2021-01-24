@@ -14,13 +14,13 @@ module.exports = {
       grade: {
         type: Sequelize.STRING,
       },
-      assignmentId: {
+      AssignmentId: {
         type: Sequelize.INTEGER,
         onDelete: "CASCADE",
         references: {
           model: "Assignments",
           key: "id",
-          as: "assignmentId",
+          as: "AssignmentId",
         },
       },
       createdAt: {

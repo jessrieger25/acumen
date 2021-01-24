@@ -13,8 +13,11 @@ module.exports = (sequelize, DataTypes) => {
   }
   Submission.init(
     {
+      assignmentId: DataTypes.INTEGER,
       completed: DataTypes.BOOLEAN,
       grade: DataTypes.STRING,
+      passed: DataTypes.INTEGER,
+      failed: DataTypes.INTEGER,
     },
     {
       sequelize,
@@ -23,8 +26,7 @@ module.exports = (sequelize, DataTypes) => {
   );
 
   Submission.associate = (models) => {
-    Submission.hasMany(models.Test);
-    Submission.hasMany(models.SubmissionFile);
+    Submission.hasOne(models.File);
   };
   return Submission;
 };

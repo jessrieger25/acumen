@@ -12,7 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   AssignmentFile.init(
-    {},
+    {
+      AssignmentId: DataTypes.INTEGER,
+      FileId: DataTypes.INTEGER,
+    },
     {
       sequelize,
       modelName: "AssignmentFile",
@@ -21,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
 
   AssignmentFile.associate = (models) => {
     AssignmentFile.belongsTo(models.Assignment, {
-      foreignKey: "assignmentId",
+      foreignKey: "AssignmentId",
     });
     AssignmentFile.belongsTo(models.File, {
       foreignKey: "fileId",

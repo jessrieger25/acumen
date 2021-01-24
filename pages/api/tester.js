@@ -11,9 +11,7 @@ import {
   Assignment,
   Submission,
   AssignmentFile,
-  SubmissionFile,
 } from "../../models";
-import submissionfile from "../../models/submissionfile";
 const fsPromises = fs.promises;
 
 export const config = {
@@ -84,15 +82,18 @@ async function test(testFile, subFile) {
 
 export default async (req, res) => {
   // Get
-  const fileObj = await File.create({
-    name: "test",
-    path: "here",
-    type: "Submission",
-  });
+  // const fileObj = await File.create({
+  //   name: "test",
+  //   path: "here",
+  //   type: "Submission",
+  // });
   // TODO: Create Submission
-  const submissionObj = await Submission.create({ completed: true });
-  await SubmissionFile.create({
-    fileId: fileObj.id,
-    submissionId: submissionObj.id,
+  const assignment = await Assignment.findByPk(1, {
+    include: { model: AssignmentFile },
   });
+  console.log(assignment);
+  // await SubmissionFile.create({
+  //   fileId: fileObj.id,
+  //   submissionId: submissionObj.id,
+  // });
 };

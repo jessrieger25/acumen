@@ -8,6 +8,24 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
+      AssignmentId: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "Assignments",
+          key: "id",
+          as: "AssignmentId",
+        },
+      },
+      FileId: {
+        type: Sequelize.INTEGER,
+        onDelete: "CASCADE",
+        references: {
+          model: "Files",
+          key: "id",
+          as: "FileId",
+        },
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
