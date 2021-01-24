@@ -4,6 +4,9 @@ class TestHelloWorld:
 
     def test_hello_world(self):
         assert hello_world()  == "Hello World"
+    
+    def test_hello_world2(self):
+        assert hello_world()  == "Hello World"
 
 
 # def test_synthesis(module_results_dct):
