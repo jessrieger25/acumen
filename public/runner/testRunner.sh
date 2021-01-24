@@ -9,4 +9,5 @@ touch $directory/__init__.py
 ls
 cp ./public/runner/test_syn.py $directory/test_syn.py
 
-python3 -m pytest -s -v $testPath
+cd $directory
+python3 -m pytest -s -v
