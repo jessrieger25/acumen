@@ -1,7 +1,15 @@
 import "../styles/globals.css";
+import { Nav } from "../components/Nav";
 
 function MyApp({ Component, pageProps }) {
-  return <Component {...pageProps} className="w-full h-full" />;
+  return (
+    <>
+      <Nav />
+      <div className="container mx-auto">
+        <Component {...pageProps} className="w-full h-full" />
+      </div>
+    </>
+  );
 }
 
 export default MyApp;
