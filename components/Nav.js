@@ -9,24 +9,14 @@ export function Nav() {
         <span className="text-xl font-black font-mono text-green-800 mr-10">
           Ackumen
         </span>
-        <Link href="/instructor">
+        <Link href="/assignments">
           <span
             className={
               "cursor-pointer py-3 " +
-              (pathname === "/instructor" ? "font-bold" : "")
+              (pathname.includes("/assignments") ? "font-bold" : "")
             }
           >
-            Instructor
-          </span>
-        </Link>
-        <Link href="/student">
-          <span
-            className={
-              "cursor-pointer py-3" +
-              (pathname === "/student" ? "font-bold" : "")
-            }
-          >
-            Student
+            Assignments
           </span>
         </Link>
       </nav>

@@ -1,19 +1,31 @@
-import { useRef, useState, PureComponent } from "react";
+import { useRef, useState, PureComponent, useEffect } from "react";
 
 export function useUpload() {
-  const inputRef = useRef(null);
   const [uploadState, setUploadState] = useState(null);
   const [uploadPath, setUploadPath] = useState(null);
   return {
-    upload: async () => {
-      if (!inputRef.current) {
-        console.error("missing input ref");
-      }
+    upload: async (testInput, templateInput, additionalFields) => {
       setUploadState("loading");
-      const file = inputRef.current.files[0];
-      const formData = new FormData();
-      formData.append("file", file);
 
+      // append the files
+      const formData = new FormData();
+      formData.append("testFile", testInput.current.files[0]);
+      formData.append("templateFile", templateInput.current.files[0]);
+
+      // add additional form information
+      for (const [key, value] of Object.entries(additionalFields)) {
+        formData.append(key, value);
+      }
+
+      console.log("sending", Array.from(formData.entries()));
+
+      setTimeout(() => {
+        setUploadState("successful");
+        setUploadPath("uploads/upload_2c8b87124350bd17ff22c42cf03b1260.py");
+      }, 1500);
+
+      // fetch it!
+      /*
       const response = await fetch("/api/upload", {
         method: "POST",
         body: formData,
@@ -27,8 +39,8 @@ export function useUpload() {
       const json = await response.json();
       setUploadPath(json.files.file.path);
       setUploadState("successful");
+      */
     },
-    inputRef,
     uploadState,
     uploadPath,
   };
