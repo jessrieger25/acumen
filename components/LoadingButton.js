@@ -1,6 +1,6 @@
 import "react";
 
-export function LoadingButton({ children, loadState, ...attrs }) {
+export function LoadingButton({ children, loadState, defaultIcon, ...attrs }) {
   const enabledButtonClasses = "hover:bg-green-600 focus:bg-green-600 ";
   const shouldDisable = loadState === "loading" || loadState === "successful";
   return (
@@ -11,6 +11,7 @@ export function LoadingButton({ children, loadState, ...attrs }) {
       disabled={shouldDisable}
       {...attrs}
     >
+      {loadState === null || loadState === undefined ? defaultIcon : null}
       {loadState === "loading" ? Spinner : null}
       {loadState === "successful" ? Check : null}
       {children}
