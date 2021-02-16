@@ -1,9 +1,19 @@
 import { LoadingButton } from "./LoadingButton";
 import { useCreateAssignment } from "../hooks/useCreateAssignment";
+import { useState, useRef } from "react";
+import { useUpload } from "../hooks/useUpload";
 
-export function CreateAssignmentForm() {
-  const { createAssignment, response } = useCreateAssignment();
-  const loadingState = response ? "successful" : null;
+export function CreateAssignmentForm({ onSuccess }) {
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const { upload, uploadState } = useUpload();
+
+  const templateInput = useRef(null);
+  const testInput = useRef(null);
+
+  if (uploadState === "successful") {
+    onSuccess?.();
+  }
   return (
     <div
       className="absolute w-full p-3 z-10 bg-white border-green-500 border-2 rounded-bl rounded-br flex flex-col gap-4"
@@ -11,18 +21,51 @@ export function CreateAssignmentForm() {
     >
       <label>
         <span className="font-bold">Title</span>
-        <input className="p-2 px-3 border-2 border-gray-300 w-full rounded"></input>
+        <input
+          className="p-2 px-3 border-2 border-gray-300 w-full rounded"
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
+        ></input>
       </label>
       <label>
         <span className="font-bold">Description</span>
-        <textarea className="min-h-10 border-2 border-gray-300 w-full rounded"></textarea>
+        <textarea
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          className="p-2 px-3 border-2 border-gray-300 w-full rounded"
+        ></textarea>
       </label>
       <label>
-        <span className="font-bold">Python File</span>
-        <input className="flex flex-col" type="file" accept=".py"></input>
+        <span className="font-bold">Test File</span>
+        <input
+          ref={testInput}
+          className="flex flex-col"
+          type="file"
+          accept=".py"
+        ></input>
       </label>
-      <LoadingButton onClick={createAssignment} defaultIcon={Add}>
-        <span className="font-bold">Create</span>
+      <label>
+        <span className="font-bold">Template File</span>
+        <input
+          ref={templateInput}
+          className="flex flex-col"
+          type="file"
+          accept=".py"
+        ></input>
+      </label>
+      <LoadingButton
+        onClick={() =>
+          upload(testInput, templateInput, {
+            title,
+            description,
+          })
+        }
+        defaultIcon={Add}
+        loadState={uploadState}
+      >
+        <span className="font-bold">
+          {uploadState === "successful" ? "Created" : "Create"}
+        </span>
       </LoadingButton>
     </div>
   );

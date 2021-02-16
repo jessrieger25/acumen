@@ -12,7 +12,13 @@ export function CreateAssignment() {
       >
         Create Assignment {ChevronDown}
       </button>
-      {isOpen ? <CreateAssignmentForm /> : ""}
+      {isOpen ? (
+        <CreateAssignmentForm
+          onSuccess={() => setTimeout(() => setIsOpen(false), 500)}
+        />
+      ) : (
+        ""
+      )}
     </div>
   );
 }
