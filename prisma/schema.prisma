@@ -1,0 +1,59 @@
+datasource db {
+    url      = env("DATABASE_URL")
+    provider = "postgresql"
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model File {
+    id           Int          @id @default(autoincrement())
+    path         String
+    Assignment   Assignment?  @relation(fields: [assignmentId], references: [id])
+    assignmentId Int?
+    Submission   Submission[]
+}
+
+model Course {
+    id           Int          @id @default(autoincrement())
+    name         String
+    instructorId Int
+    instructor   Instructor   @relation(fields: [instructorId], references: [id])
+    assignments  Assignment[]
+    Student      Student?     @relation(fields: [studentId], references: [id])
+    studentId    Int?
+}
+
+model Assignment {
+    id          Int          @id @default(autoincrement())
+    name        String
+    description String
+    files       File[]
+    course      Course       @relation(fields: [courseId], references: [id])
+    submissions Submission[]
+    courseId    Int
+}
+
+model Instructor {
+    id      Int      @id @default(autoincrement())
+    name    String
+    courses Course[]
+}
+
+model Submission {
+    id           Int        @id @default(autoincrement())
+    fileId       Int
+    file         File       @relation(fields: [fileId], references: [id])
+    studentId    Int
+    submittedBy  Student    @relation(fields: [studentId], references: [id])
+    assignmentId Int
+    assignment   Assignment @relation(fields: [assignmentId], references: [id])
+}
+
+model Student {
+    id         Int          @id @default(autoincrement())
+    name       String
+    courses    Course[]
+    Submission Submission[]
+}
