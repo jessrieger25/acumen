@@ -13,7 +13,7 @@ export default function Home() {
       <div className="grid w-full h-full place-items-center">
         <div className="flex flex-col gap-y-4">
           <label className="text-3xl" htmlFor="py-upload">
-            Upload a Python File
+            Upload a Python Assignment
           </label>
           <input ref={inputRef} id="py-upload" type="file" accept=".py"></input>
           <LoadingButton onClick={upload} loadState={uploadState}>
